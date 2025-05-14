@@ -11,7 +11,7 @@ public class AudioPlayer : MonoBehaviour
 
     public XROrigin rig;
 
-    private DynamicMoveProvider moveBrain;
+    private CharacterController characterController;
 
 
     void Start()
@@ -21,24 +21,17 @@ public class AudioPlayer : MonoBehaviour
             Debug.LogError("AudioSources are not properly assigned.");
         }
 
-        if (rig != null)
-        {
-            moveBrain = rig.GetComponentInChildren<DynamicMoveProvider>();
-        }
-        else
-        {
-            Debug.Log("Audio cant find the player!");
-        }
+        characterController = GetComponent<CharacterController>();
     }
 
 
     void Update()
     {
-        if(moveBrain != null)
+        if(characterController != null)
         {
-            if(moveBrain.rightHandMovementDirection > 0)
+            if (characterController.velocity.magnitude >= 0.3f)
             {
-                FootstepsAudio();
+                StartFootstepsAudio();
             }
             else
             {
@@ -48,11 +41,13 @@ public class AudioPlayer : MonoBehaviour
 
     }
 
-    public void FootstepsAudio()
+    public void StartFootstepsAudio()
     {
         if (!audioSource.isPlaying)
         {
-            audioSource.PlayOneShot(footstepsAudio);
+            audioSource.clip = footstepsAudio;
+            audioSource.loop = true;
+            audioSource.Play(); 
         }
     }
 

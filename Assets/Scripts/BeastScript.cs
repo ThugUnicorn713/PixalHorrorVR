@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,10 +8,25 @@ public class BeastScript : MonoBehaviour
     public float wanderInterval = 3f;
     NavMeshAgent agent;
 
+    public static BeastScript instance;
+
+    public static BeastScript GetInstance()
+    {
+        return instance;
+    }
+
+
     void Start()
     {
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+
         agent = GetComponent<NavMeshAgent>();
         InvokeRepeating(nameof(SetRandomPoint), 0f, wanderInterval);
+         
     }
 
     void SetRandomPoint()
@@ -25,4 +41,11 @@ public class BeastScript : MonoBehaviour
         }
 
     }
+
+     public void GoToPlayer(Vector3 nextPos)
+     {
+        agent.SetDestination(nextPos);
+        Debug.Log(" Beast is coming for me!");
+
+     }
 }

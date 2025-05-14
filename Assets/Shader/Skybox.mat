@@ -38,9 +38,9 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MoonTexture:
-        m_Texture: {fileID: 2800000, guid: a16e0ee87bd3e644e913a1f3f8e36b0d, type: 3}
-        m_Scale: {x: 3.46, y: 3.15}
-        m_Offset: {x: -0.2, y: 0.04}
+        m_Texture: {fileID: 2800000, guid: bda860d4303ddf642a9046cb6a0ab6e3, type: 3}
+        m_Scale: {x: 2.01, y: 2.36}
+        m_Offset: {x: -0.21, y: 0.1}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -58,16 +58,16 @@ Material:
     - _Blend: 1
     - _GroundBlend: 1
     - _HorizonBlend: 30
-    - _MoonSize: 0.15
+    - _MoonSize: 0.26
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _StarHeight: 409.1
+    - _StarHeight: 409.3
     - _StarIntensity: 14
-    - _StarPower: 36.4
+    - _StarPower: 36.8
     m_Colors:
     - _GroundColor: {r: 0.18867916, g: 0.052509747, b: 0.069572695, a: 1}
     - _HorizionColor: {r: 0.047169805, g: 0.026366139, b: 0.0055624763, a: 1}
-    - _MainLightDirection: {r: 0.09351851, g: -0.47570086, b: -0.8746218, a: 0}
+    - _MainLightDirection: {r: 0.14187631, g: -0.61080146, b: 0.778969, a: 0}
     - _Mooncolor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
     - _SkyColor: {r: 0.024563903, g: 0.024563903, b: 0.0754717, a: 1}
   m_BuildTextureStacks: []
