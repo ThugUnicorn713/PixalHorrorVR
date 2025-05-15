@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit.Filtering;
 
 public class PlayerScript : MonoBehaviour
 {
-    public Collider hearMeCollider;
+    //public Collider hearMeCollider;
     public XROrigin rig;
 
     public float fullSpeedMax = 3.0f;
@@ -15,28 +15,28 @@ public class PlayerScript : MonoBehaviour
 
     private CharacterController characterController;
     private float activeSpeedTime = 0f;
-    public bool canHearMe = false; 
+    public bool canHearMe = false;
 
-    
+    private Vector3 playerPos;
+    private Vector3 beastPos;
+    public GameObject beast;
+
+    public GameObject noiseIcon;
+
+
     void Start()
     {
-            
+
         characterController = rig.GetComponent<CharacterController>();
-
-        if (hearMeCollider != null)
-        {
-            hearMeCollider.enabled = false;
-        }
-
 
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         float speed = characterController.velocity.magnitude;
 
-        if(!hearMeCollider.enabled && speed >= fullSpeedMax)
+        if( speed >= fullSpeedMax)
         {
             activeSpeedTime += Time.deltaTime;
 
@@ -47,29 +47,50 @@ public class PlayerScript : MonoBehaviour
             }
         }
         
+
+        if (canHearMe)
+        {
+            if (noiseIcon != null)
+            {
+                noiseIcon.SetActive(true);
+            }
+
+        }
+        else
+        {
+            noiseIcon.SetActive(false);
+        }
+
+
     }
 
     void beastCanHearPlayer()
     {
-        if (hearMeCollider != null)
+        beastPos = beast.transform.position;
+        playerPos = gameObject.transform.position;
+
+        float distance = Vector3.Distance(beastPos, playerPos);
+
+        if (distance <= 50f)
         {
             canHearMe = true;
-            hearMeCollider.enabled = true;
-
-            StartCoroutine(DisableHearMeCollider());   
-
+            BeastScript.GetInstance().GoToPlayer(playerPos);
+            StartCoroutine(DisableHearMe());
         }
+        else
+        {
+            Debug.Log("The Beast is too far");
+            activeSpeedTime = 0f;
+        }
+
     }
 
-    IEnumerator DisableHearMeCollider()
+    IEnumerator DisableHearMe()
     {
-        yield return new WaitForSeconds(colActiveDuration);
-
-        if(hearMeCollider != null)
-        {
-            activeSpeedTime = 0;
-            hearMeCollider.enabled=false;
-            canHearMe = false;
-        }
+        yield return new WaitForSeconds(15f);
+        canHearMe = false;
+        activeSpeedTime = 0f;
+        Debug.Log("Beast can no longer hear me");
+        
     }
 }

@@ -8,6 +8,7 @@ public class BeastScript : MonoBehaviour
     public float wanderInterval = 3f;
     NavMeshAgent agent;
 
+
     public static BeastScript instance;
 
     public static BeastScript GetInstance()
@@ -47,5 +48,22 @@ public class BeastScript : MonoBehaviour
         agent.SetDestination(nextPos);
         Debug.Log(" Beast is coming for me!");
 
-     }
+     } 
+    
+    public void GoToObject(Vector3 nextPos)
+    {
+        agent.SetDestination(nextPos);
+        Debug.Log(" Beast is going to object!");
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            //end Scene
+
+            Debug.Log("Beast killed the player!");
+        }
+    }
 }
