@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,9 @@ public class BeastScript : MonoBehaviour
     public float wanderInterval = 3f;
     NavMeshAgent agent;
 
+    public XROrigin player;
+    public GameObject respawnPoint;
+    public GameObject deathPanel;
 
     public static BeastScript instance;
 
@@ -61,9 +65,17 @@ public class BeastScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //end Scene
+            deathPanel.SetActive(true);
 
-            Debug.Log("Beast killed the player!");
+            Invoke("RespawnThePlayer", 5);
+            
         }
+    }
+
+    void RespawnThePlayer()
+    {
+        deathPanel.SetActive(false);
+        player.transform.position = respawnPoint.transform.position;
+
     }
 }

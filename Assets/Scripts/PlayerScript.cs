@@ -71,7 +71,7 @@ public class PlayerScript : MonoBehaviour
 
         float distance = Vector3.Distance(beastPos, playerPos);
 
-        if (distance <= 50f)
+        if (distance <= 100f)
         {
             canHearMe = true;
             BeastScript.GetInstance().GoToPlayer(playerPos);
